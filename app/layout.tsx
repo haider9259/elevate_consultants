@@ -3,8 +3,16 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+// ✅ Variable names se properly define karo
+const geistSans = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",  // ← CSS variable add karo
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",  // ← CSS variable add karo
+});
 
 export const metadata: Metadata = {
   title: 'Elevate Consultants - Enterprise Solutions',
@@ -36,7 +44,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      {/* ✅ CSS variables apply karo body pe */}
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
